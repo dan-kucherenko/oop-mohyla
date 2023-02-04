@@ -6,27 +6,24 @@ int Point::_freeID;
 Point::Point(double x, double y) : _pointID(++_freeID), _x(x), _y(y)
 {
 #ifndef NDEBUG
-	cout << "Constructor has been called" << endl;
-#endif
 	cout << "Point " << *this << " has been created" << endl;
+#endif
 	return;
 }
 
-Point::Point(const Point& p): _pointID(++_freeID), _x(p.x()), _y(p.y())
+Point::Point(const Point& p) : _pointID(++_freeID), _x(p.x()), _y(p.y())
 {
 #ifndef NDEBUG
-	cout << "Copy-constructor has been called" << endl;
-#endif
 	cout << "Point " << *this << " has been copied" << endl;
+#endif
 	return;
 }
 
 Point::~Point()
 {
 #ifndef NDEBUG
-	cout << "Destructor has been called" << endl;
-#endif
 	cout << "Point " << *this << " has been deleted" << endl;
+#endif
 }
 
 Point& Point::operator=(const Point& p)
@@ -56,15 +53,12 @@ int Point::amount()
 
 ostream& operator<<(ostream& os, const Point& p)
 {
-	return os << "(pointID= " << p.getID() << ", x= " << p.x() << ", y= " << p.y() << ")";
+	return os << "(id=" << p.getID() << ", x=" << p.x() << ", y=" << p.y() << ")";
 }
 
 const Point operator+(const Point& u, const Point& v)
 {
-	return {
-		u.x() + v.x(),
-		u.y() + v.y()
-	};
+	return Point(u.x() + v.x(), u.y() + v.y());
 }
 
 Point& operator+=(Point& u, const Point& v)
