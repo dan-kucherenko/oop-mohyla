@@ -72,10 +72,7 @@ const Point operator+(const Point& u, const Point& v)
 
 Point& operator+=(Point& u, const Point& v)
 {
-	u.x() += v.x();
-	u.y() += v.y();
-	return u;
-	//return u = u + v;
+	return u = u + v;
 }
 
 bool operator==(const Point& u, const Point& v)
