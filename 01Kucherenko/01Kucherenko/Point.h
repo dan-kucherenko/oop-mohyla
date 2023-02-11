@@ -30,12 +30,12 @@ public:
 	Point(const Point&);
 	~Point();
 	Point& operator=(const Point&);
-	double& x();
-	double& y();
-	const double& x() const;
-	const double& y() const;
-	const int getID() const;
-	static int amount();
+	inline double& x() { return _x; }
+	inline double& y() { return _y; }
+	inline const double& x() const { return _x; }
+	inline const double& y() const { return _y; }
+	inline const int getID() const { return _pointID; }
+	inline static int amount() { return _freeID; }
 };
 
 ostream& operator<<(ostream&, const Point&);

@@ -39,24 +39,6 @@ Point& Point::operator=(const Point& p)
 	return *this;
 }
 
-double& Point::x() { return _x; }
-
-double& Point::y() { return _y; }
-
-const double& Point::x() const { return _x; }
-
-const double& Point::y() const { return _y; }
-
-const int Point::getID() const
-{
-	return _pointID;
-}
-
-int Point::amount()
-{
-	return _freeID;
-}
-
 ostream& operator<<(ostream& os, const Point& p)
 {
 	return os << "(id=" << p.getID() << ", x=" << p.x() << ", y=" << p.y() << ")";

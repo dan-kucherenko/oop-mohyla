@@ -1,2 +1,5 @@
-﻿  Point.cpp
+﻿  Main.cpp
+  Point.cpp
+  Generating Code...
+  LINK : C:\dev\VisualStudio Projects\oop-mohyla\01Kucherenko\x64\Debug\01Kucherenko.exe not found or not built by the last incremental link; performing full link
   01Kucherenko.vcxproj -> C:\dev\VisualStudio Projects\oop-mohyla\01Kucherenko\x64\Debug\01Kucherenko.exe
