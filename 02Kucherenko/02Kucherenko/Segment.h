@@ -1,11 +1,13 @@
+//
+//Developed by Daniil Kucherenko on 13.02.2022
+//
+
 #pragma once
 //*******************************************
 //Every segment posesses its unique ID.
 //In debug mode both constructor and destructor
 //report the ID and the coordinates
 //of a segment created or resp. deleted
-//Developed by .....................
-//at ....................
 //Version 1.0
 
 //*******************************************
@@ -28,7 +30,7 @@ public:
 	// Конструктори відрізків
 	// 1) за координатами його кінців
 	Segment(const double x1 = 0, const double y1 = 0,
-		const double x2 = 1, const double y2 = 0);
+	        const double x2 = 1, const double y2 = 0);
 	// 2) за точками початку і кінця
 	Segment(const Point& start, const Point& end);
 	// 3) копіювальний конструктор
@@ -39,27 +41,27 @@ public:
 	// Присвоєння
 	Segment& operator=(const Segment&);
 	// Селектори  точок
-	const Point& start() const;
-	const Point& end() const;
+	inline const Point& start() const { return _a; }
+	inline const Point& end() const { return _b; }
 	// Селектори-модифікатори точок
-	Point& start();
-	Point& end();
+	inline Point& start() { return _a; }
+	inline Point& end() { return _b; }
 	// Селектори координат точок
-	const double& startX() const;
-	const double& startY() const;
-	const double& endX() const;
-	const double& endY() const;
+	inline const double& startX() const { return _a.x(); }
+	inline const double& startY() const { return _a.y(); }
+	inline const double& endX() const { return _b.x(); }
+	inline const double& endY() const { return _b.y(); }
 	// Селектори-модифікатори координат точок
-	double& startX();
-	double& startY();
-	double& endX();
-	double& endY();
+	inline double& startX() { return _a.x(); }
+	inline double& startY() { return _a.y(); }
+	inline double& endX() { return _b.x(); }
+	inline double& endY() { return _b.y(); }
 	// Обчислення довжини відрізка
 	double length() const;
 	// Обчислення відстані від відрізка до точки
 	double distance(const Point&) const;
 	// Селектор ID
-	const int getID() const;
+	inline const int getID() const { return _myId; }
 };
 
 ostream& operator<<(ostream&, const Segment&);
