@@ -40,22 +40,41 @@ Segment::~Segment()
 
 Segment& Segment::operator=(const Segment& s)
 {
-	this->_a = s._a;
-	this->_b = s._b;
+	_a = s._a;
+	_b = s._b;
 	return *this;
 }
 
 double Segment::length() const
 {
-	return sqrt(pow(this->_b.x() - this->_a.x(), 2) + pow(this->_b.y() - this->_a.y(), 2));
+	return sqrt(pow(_b.x() - _a.x(), 2) + pow(_b.y() - _a.y(), 2));
 }
 
-double Segment::distance(const Point&) const
+double Segment::distance(const Point& p) const
 {
-	return 0.0; // TODO: finish method
+	// Vector from Point _a to Point _b
+	double vec_abx = _b.x() - _a.x();
+	double vec_aby = _b.y() - _a.y();
+
+	// Vector from Point _a to Point p
+	double vec_pax = p.x() - _a.x();
+	double vec_pay = p.y() - _a.y();
+
+	// Vector from Point _b to Point p
+	double vec_bpx = p.x() - _b.x();
+	double vec_bpy = p.y() - _b.y();
+
+	double scalar_m_ab_ap = vec_pax * vec_abx + vec_pay * vec_aby; // scalar multiplication of AB and AP vector
+	double scalar_m_ab = pow(vec_abx, 2) + pow(vec_aby, 2); // scalar multiplication of AB by itself
+
+	if (scalar_m_ab_ap <= 0.0) // point is closer to the start of segment
+		return sqrt(pow(vec_pax, 2) + pow(vec_pay, 2));
+	if (scalar_m_ab_ap >= scalar_m_ab) // point is closer to the end of segment
+		return sqrt(pow(vec_bpx, 2) + pow(vec_bpy, 2));
+	return fabs(vec_pax * vec_pay - vec_aby * vec_pax) / sqrt(scalar_m_ab); // point can be projected on the segment
 }
 
 ostream& operator<<(ostream& os, const Segment& s)
 {
-	return os << "(start_p=" << s.start() << ", end_p=" << s.end();
+	return os << '(' << s.start() << ", " << s.end() << ')';
 }
