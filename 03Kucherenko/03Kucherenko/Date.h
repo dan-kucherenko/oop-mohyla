@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+
+#include "Date.h"
 using namespace std;
 
 class Date
@@ -17,22 +19,22 @@ public:
 	static void setDefault(int, Month, int);
 	static void setDefault();
 	static void showDefault();
-	
-	int day() const;
-	Month month() const;
-	int year() const;
-	const string getMonthName() const;
-	void setDay(int);
-	void setMonth(int);
-	void setDYear(int);
-	
-//	Arithmetics
+
+	inline int day() const { return _day; }
+	inline Month month() const { return static_cast<Month>(_month); }
+	inline int year() const { return _year; }
+	inline const string getMonthName() const { return monthNames[_month - 1]; }
+	inline void setDay(int d) { fillDate(d, Month(_month), _year); }
+	inline void setMonth(int m) { fillDate(_day, Month(m), _year); }
+	inline void setDYear(int y) { fillDate(_day, Month(_month), y); }
+
+	//	Arithmetics
 	Date& operator+=(int);
 	Date& operator-=(int);
-	const Date operator++();
-	const Date& operator++(int);
-	const Date operator--();
-	const Date& operator--(int);
+	const Date operator++(int);
+	const Date& operator++();
+	const Date operator--(int);
+	const Date& operator--();
 
 private:
 	int _day, _month, _year;
@@ -40,7 +42,6 @@ private:
 	static string monthNames[12];
 	static bool defaultSet;
 	static Date defaultDate;
-
 };
 
 bool leapYear(int y);
@@ -49,6 +50,8 @@ ostream& operator<<(ostream& os, const Date& d);
 struct Date::BadDate
 {
 	int _day, _month, _year;
-	BadDate(int d, int m, int y) :_day(d), _month(m), _year(y) {};
+
+	BadDate(int d, int m, int y) : _day(d), _month(m), _year(y) {}
 };
+
 ostream& operator<<(ostream& os, const Date::BadDate& bd);
