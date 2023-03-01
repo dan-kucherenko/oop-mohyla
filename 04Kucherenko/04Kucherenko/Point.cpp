@@ -41,7 +41,7 @@ Point& Point::operator=(const Point& p)
 
 ostream& operator<<(ostream& os, const Point& p)
 {
-	return os << "(id=" << p.getID() << ", x=" << p.x() << ", y=" << p.y() << ")";
+	return os << '(' << p.x() << ", " << p.y() << ')';
 }
 
 const Point operator+(const Point& u, const Point& v)
