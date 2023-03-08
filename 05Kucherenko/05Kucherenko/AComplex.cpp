@@ -1,5 +1,7 @@
 #include <iostream>
+
 #include "AComplex.h"
+#include "TComplex.h"
 
 AComplex::AComplex(double re, double im) : _re(re), _im(im)
 {
@@ -15,10 +17,10 @@ AComplex::AComplex(const AComplex& ac) : _re(ac._re), _im(ac._im)
 #endif
 }
 
-AComplex::AComplex(const TComplex& tc) : _re(tc.re()), _im(tc.im())
+AComplex::AComplex(const TComplex& tc) : _re(tc.real()), _im(tc.imag())
 {
 #ifndef NDEBUG
-	std::cout << "Converted TComplex, created a copy: " << *this << std::endl;
+	std::cout << "Converted TComplex created: " << *this << std::endl;
 #endif
 }
 
@@ -46,7 +48,7 @@ double AComplex::arg() const
 	return atan(imag() / real());
 }
 
-const AComplex operator+(AComplex& ac_a, const AComplex& ac_b)
+const AComplex operator+(const AComplex& ac_a, const AComplex& ac_b)
 {
 	AComplex c = ac_a;
 	return c += ac_b;
