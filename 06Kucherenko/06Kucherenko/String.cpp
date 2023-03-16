@@ -1,7 +1,15 @@
 #include "String.h"
 #include <iostream>
+#include <string>
+using std::cout;
+using std::endl;
 
-using namespace std;
+void copyString(char* target, const char* source, size_t length)
+{
+	for (size_t i = 0; i < length; ++i)
+		target[i] = source[i];
+	target[length] = '\0';
+}
 
 #pragma region Default constructors
 String::String() : _length(0), _string(new char[1]{'\0'})
@@ -20,6 +28,8 @@ String::String(const char character) : _length(1), _string(new char[2]{character
 
 String::String(const char* characters) : _length(strlen(characters)), _string(new char[_length + 1])
 {
+	if (characters == nullptr)
+		throw BadString("Bad string: string is null");
 	for (size_t i = 0; i < _length; i++)
 		_string[i] = characters[i];
 	_string[_length] = '\0';
@@ -67,64 +77,40 @@ String::~String()
 	delete[]_string;
 }
 
-String::operator std::string()
+#pragma region Cast operators
+String::operator std::string() const
 {
-	return {};
+	return std::string(_string);
 }
 
-String::operator char* () const
+String::operator const char*() const
 {
-	return nullptr;
+	return _string;
 }
+#pragma endregion
 
 #pragma region Operator=
 String& String::operator=(const String& s)
 {
 	if (this == &s)
 		return *this;
-	delete[] _string;
-	_length = s._length;
-	_string = new char[_length + 1];
-	copyString(_string, s._string, _length);
+	delete[] getString();
+	length() = s.length();
+	getString() = new char[length() + 1];
+	copyString(getString(), s.getString(), length());
 	return *this;
 }
 
-String& String::operator=(const String&&)&
+String& String::operator=(String&& s) & noexcept
 {
-	// TODO: insert return statement here
-	return *this;
-}
-
-String& String::operator=(const std::string& s)
-{
-	if (*this == s)
-		return *this;
-	delete[] _string;
-	_length = s.length();
-	_string = new char[_length + 1];
-	copyString(_string, s.c_str(), _length);
-	return *this;
-}
-
-
-String& String::operator=(const char* s)
-{
-	if (s == nullptr)
-		return *this;
-	delete[] _string;
-	for (_length = 0; s[_length]; _length++);
-	_string = new char[_length + 1];
-	copyString(_string, s, _length);
-	return *this;
-}
-
-String& String::operator=(const char c)
-{
-	delete[] _string;
-	_length = 1;
-	_string = new char[2];
-	_string[0] = c;
-	_string[1] = '\0';
+	if (this != &s)
+	{
+		delete[] getString();
+		length() = s.length();
+		getString() = s.getString();
+		s.length() = 0;
+		s.getString() = nullptr;
+	}
 	return *this;
 }
 #pragma endregion
@@ -132,84 +118,51 @@ String& String::operator=(const char c)
 #pragma region Operator[]
 char& String::operator[](const size_t index)
 {
-	return _string[index];
+	if (index < 0 || length() <= index)
+		throw BadString("Bad string: index out of range: ", index);
+	return getString()[index];
 }
 
 const char& String::operator[](const size_t index) const
 {
-	return _string[index];
+	if (length() <= index)
+		throw BadString("Bad string: index out of range: ", index);
+	return getString()[index];
 }
 #pragma endregion
 
 #pragma region Operator+, +=
-String String::operator+(const String& s) const
+const String operator+(const String& s1, const String& s2)
 {
-	String res(*this);
-	return res += s;
+	String res(s1);
+	return res += s2;
 }
 
-String String::operator+(const std::string&) const
+String& operator+=(String& s1, const String& s2)
 {
-	return {};
-}
-
-String& String::operator+=(const String& s)
-{
-	size_t len = _length + s._length;
+	size_t len = s1.length() + s2.length();
 	char* newString = new char[len + 1];
-	copyString(newString, _string, _length);
-	delete[] _string;
-	_string = newString;
-	copyString(_string + _length, s._string, s._length);
-	_length = len;
-	return *this;
-}
-
-String& String::operator+=(const std::string&)
-{
-	// TODO: insert return statement here
-	return *this;
-}
-
-String& String::operator+=(const char* s)
-{
-	if (s == nullptr)
-		return *this;
-	size_t len = strlen(s);
-	char* newString = new char[len + _length + 1];
-	copyString(newString, _string, _length);
-	delete[] _string;
-	_string = newString;
-	copyString(_string + _length, s, _length);
-	return *this;
+	copyString(newString, s1.getString(), s1.length());
+	delete[] s1.getString();
+	s1.getString() = newString;
+	copyString(s1.getString() + s1.length(), s2.getString(), s2.length());
+	s1.length() = len;
+	return s1;
 }
 #pragma endregion
 
 #pragma region Operator==, !=
-bool String::operator==(const String& s) const
+bool operator==(const String&s1, const String& s2)
 {
-	bool equal = _length == s._length;
-	for (unsigned int i = 0; i < _length && equal; i++)
-		equal = _string[i] == s[i];
+	bool equal = s1.length() == s2.length();
+	for (unsigned int i = 0; i < s1.length() && equal; i++)
+		equal = s1.getString()[i] == s2.getString()[i];
 	return equal;
 }
 
-bool String::operator==(const std::string& s) const
+bool operator!=(const String& s1, const String& s2)
 {
-	bool equal = _length == s.length();
-	for (unsigned int i = 0; i < _length && equal; i++)
-		equal = _string[i] == s[i];
-	return equal;
-}
-
-bool String::operator!=(const String& s) const
-{
-	return !(*this == s);
-}
-
-bool String::operator!=(const std::string& s) const
-{
-	return !(*this == s);
+	return !(s1 == s2);
 }
 #pragma endregion
 
@@ -218,10 +171,4 @@ std::ostream& operator<<(std::ostream& os, const String& s)
 	for (size_t i = 0; i < s.length(); i++)
 		os << s[i];
 	return os;
-}
-void String::copyString(char* target, const char* source, size_t length)
-{
-	for (size_t i = 0; i < length; ++i)
-		target[i] = source[i];
-	target[length] = '\0';
 }
