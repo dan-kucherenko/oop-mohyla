@@ -1,23 +1,28 @@
 #include "Screen.h"
 
 
-const size_t Screen::_maxHeight = 24;
-const size_t Screen::_maxWidth = 80;
-const char Screen::_filler = '.';
+const size_t Screen::_maxHeight = 30;
+const size_t Screen::_maxWidth = 60;
+const char Screen::_filler = '*';
 
 Screen::Screen(const size_t width, const size_t height, char* content) : _width(width > _maxWidth ? _maxWidth : width),
-                                                          _height(height > _maxHeight ? _maxHeight : height),
-                                                          _ñontent(new char[_height * _width + 1]), _cursor(0)
+                                                                         _height(height > _maxHeight
+	                                                                         ? _maxHeight
+	                                                                         : height),
+                                                                         _ñontent(new char[_height * _width + 1]),
+                                                                         _cursor(0)
 {
 	const size_t content_length = content == 0 ? 0 : strlen(content);
 	const size_t factual_length = content_length > _height * _width ? _height * _width : content_length;
 	_ñontent[_height * _width] = '\0';
 	size_t i = 0;
-	if (content != nullptr) {
+	if (content != nullptr)
+	{
 		for (; i < factual_length; i++)
 			*(_ñontent + i) = *content++;
 	}
-	else {
+	else
+	{
 		for (; i < _height * _width; i++)
 			*(_ñontent + i) = _filler;
 	}
@@ -52,7 +57,7 @@ const Screen& Screen::moveOneRight() const
 
 Screen& Screen::moveOneRight()
 {
-	if (_width * _height < ++_cursor)
+	if (++_cursor >= _width * _height)
 		_cursor = 0;
 	return *this;
 }
@@ -93,7 +98,7 @@ Screen& Screen::moveOneLeft()
 #pragma region Show
 const Screen& Screen::show() const
 {
-	cout << "Ñursor: " << _cursor << endl;
+	cout << "Cursor: " << _cursor << endl;
 	home();
 
 	for (size_t i = 0; i < _height; i++)
@@ -138,7 +143,7 @@ Screen& Screen::clearScreen()
 {
 	for (size_t i = 0; i < _width * _height; ++i)
 		_ñontent[i] = _filler;
-	_ñontent[_width * _height] = '\0';
+	_cursor = 0;
 	return *this;
 }
 #pragma endregion
@@ -178,7 +183,8 @@ Screen& Screen::set(char ch)
 
 ostream& operator<<(ostream& os, const Screen& scr)
 {
-	return os << endl << "Width: " << scr.width() << endl << "Height: " << scr.height() << endl << "Content: " << scr.content();
+	return os << endl << "Width: " << scr.width() << endl << "Height: " << scr.height() << endl << "Content: " << scr.
+		content();
 }
 
 void doActionConst(const Screen& s, ConstAction act, size_t n)
