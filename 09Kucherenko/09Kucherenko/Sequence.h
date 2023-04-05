@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <cassert>
 #include <ostream>
 #include "Array.h"
 
@@ -11,11 +12,11 @@ class Sequence
 {
 private:
 	size_t _size;
-	Array* _array;
-	static const size_t _defaultSize;
+	static const size_t _defaultSize = 0;
+	Array<T>* _array;
 	void enlarge(const size_t times = 2);
-	Sequence& insert(const T elem, const size_t index);
-	Sequence& remove(const size_t index);
+	Sequence& makeInsert(const T elem, const size_t index);
+	Sequence& makeRemove(const size_t index);
 
 	// unused functions
 	Sequence(const Sequence&);
@@ -44,12 +45,12 @@ public:
 	Sequence& remove(const size_t index);
 };
 
-template <int n, class T>
-std::ostream& operator<<(std::ostream& os, const Sequence<n, T>& seq);
+template <class T>
+std::ostream& operator<<(std::ostream& os, const Sequence<T>& seq);
 
 #pragma region Constructor/Destructor
 template <class T>
-Sequence<T>::Sequence(const size_t capacity) : _size(0), _array(new Array<capacity, T>)
+Sequence<T>::Sequence(const size_t capacity) : _size(0), _array(new Array<T>(_size))
 {
 #ifndef NDEBUG
 	std::cout << "Sequence created with capacity " << capacity << std::endl;
@@ -62,7 +63,7 @@ Sequence<T>::~Sequence()
 #ifndef NDEBUG
 	std::cout << "Sequence deleted" << std::endl;
 #endif
-	delete[] _array;
+	delete _array;
 }
 #pragma endregion
 
@@ -84,44 +85,126 @@ bool Sequence<T>::contains(T element) const
 	return false;
 }
 
+#pragma region Operator[]
 template <class T>
-inline const T& Sequence<T>::operator[](const size_t index) const
+const T& Sequence<T>::operator[](const size_t index) const
 {
-	// TODO: insert return statement here
+	if (empty())
+		throw BadSeq("The sequence is empty.");
+	if (index > _size)
+		throw BadSeq("The index is bigger than the size.");
+	return (*_array)[index];
 }
 
 template <class T>
-inline T& Sequence<T>::operator[](const size_t index)
+T& Sequence<T>::operator[](const size_t index)
 {
-	// TODO: insert return statement here
+	if (empty())
+		throw BadSeq("The sequence is empty.");
+	if (index > _size)
+		throw BadSeq("The index is bigger than the size.");
+	return (*_array)[index];
+}
+#pragma endregion
+
+#pragma region Add/Delete Element
+template <class T>
+Sequence<T>& Sequence<T>::add(const T& elem)
+{
+	return makeInsert(elem, _size);
 }
 
 template <class T>
-inline Sequence& Sequence<T>::add(const T& elem)
+Sequence<T>& Sequence<T>::insert(const T& elem, const size_t index)
 {
-	// TODO: insert return statement here
+	if (size() < index)
+		throw BadSeq("The index is out of bounds for sequences with size");
+	return makeInsert(elem, index);
 }
 
 template <class T>
-inline Sequence& Sequence<T>::insert(const T& elem, const size_t index)
+Sequence<T>& Sequence<T>::cut()
 {
-	// TODO: insert return statement here
+	return makeRemove(_size);
 }
 
 template <class T>
-inline Sequence& Sequence<T>::cut()
+Sequence<T>& Sequence<T>::remove(const size_t index)
 {
-	// TODO: insert return statement here
+	if (_size < index || index == 0)
+		throw BadSeq("The index is out of bounds for sequences with size");
+	return makeRemove(index);
+}
+#pragma endregion
+
+
+template <class T>
+std::ostream& operator<<(std::ostream& os, const Sequence<T>& seq)
+{
+	os << '[';
+	if (!seq.empty())
+	{
+		for (size_t i = 0; i < seq.size(); ++i)
+			os << seq[i] << (i != seq.size() - 1 ? ", " : "");
+	}
+	return os << ']';
 }
 
 template <class T>
-inline Sequence& Sequence<T>::remove(const size_t index)
+class Sequence<T>::BadSeq
 {
-	// TODO: insert return statement here
+private:
+	std::string _reason;
+
+public:
+	BadSeq(const std::string reason = "") : _reason(reason)
+	{
+	}
+
+	~BadSeq()
+	{
+	}
+
+	void exceptionMessage() const
+	{
+		std::cerr << _reason << std::endl;
+	}
+};
+
+#pragma region HelperFuncs
+template <class T>
+void Sequence<T>::enlarge(const size_t times)
+{
+	const size_t newSize = capacity() * times + 1;
+	Array<T>* newArray = new Array<T>(newSize);
+	for (size_t i = 0; i < _size; ++i)
+		(*newArray)[i] = (*_array)[i];
+	delete _array;
+	_array = newArray;
 }
 
-template <int n, class T>
-inline std::ostream& operator<<(std::ostream& os, const Sequence<n, T>& seq)
+template <class T>
+Sequence<T>& Sequence<T>::makeInsert(const T elem, const size_t index)
 {
-	// TODO: insert return statement here
+	assert(index <= _size);
+	if (_size + 1 > capacity())
+		enlarge();
+	_size++;
+	for (size_t i = _size - 1; i > index; --i)
+		(*this)[i] = (*this)[i - 1];
+	(*_array)[index] = elem;
+	return *this;
 }
+
+template <class T>
+Sequence<T>& Sequence<T>::makeRemove(const size_t index)
+{
+	assert(index <= _size);
+	if (empty())
+		throw BadSeq("The sequence is empty.");
+	--_size;
+	for (size_t i = index; i <= _size && i > 0; ++i)
+		(*_array)[i - 1] = (*_array)[i];
+	return *this;
+}
+#pragma endregion
