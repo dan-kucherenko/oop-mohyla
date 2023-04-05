@@ -6,7 +6,7 @@
 #include <iostream>
 #include "Array.h"
 
-template <size_t n, class T>
+template <class T>
 class Array
 {
 private:
@@ -31,7 +31,7 @@ public:
 		void exceptionMessage() const;
 	};
 
-	explicit Array();
+	explicit Array(const size_t size);
 	~Array();
 	Array(const Array&);
 	Array& operator=(const Array&);
@@ -41,22 +41,22 @@ public:
 	size_t size() const;
 };
 
-template <size_t n, class T>
-std::ostream& operator<<(std::ostream&, const Array<n, T>&);
+template <class T>
+std::ostream& operator<<(std::ostream&, const Array<T>&);
 
 
-template <size_t n, class T>
-Array<n, T>::Array(const Array& source) : _size(source.size())
+template <class T>
+Array<T>::Array(const Array& source) : _size(source.size())
 {
 	delete[] _array;
 	_array = nullptr;
 	_array = new T[_size];
-	for (size_t i = 0; i < _size; i++) 
+	for (size_t i = 0; i < _size; i++)
 		_array[i] = source[i];
 }
 
-template <size_t n, class T>
-Array<n, T>& Array<n, T>::operator=(const Array& source)
+template <class T>
+Array<T>& Array<T>::operator=(const Array& source)
 {
 	if (this == &source)
 		return *this;
@@ -68,52 +68,52 @@ Array<n, T>& Array<n, T>::operator=(const Array& source)
 	return *this;
 }
 
-template <size_t n, class T>
-Array<n, T>::BadArray::BadArray(const std::string& problem, const size_t index) : _problem(problem), _index(index)
+template <class T>
+Array<T>::BadArray::BadArray(const std::string& problem, const size_t index) : _problem(problem), _index(index)
 {
 }
 
-template <size_t n, class T>
-void Array<n, T>::BadArray::exceptionMessage() const
+template <class T>
+void Array<T>::BadArray::exceptionMessage() const
 {
 	std::cout << _problem << " for index " << _index << std::endl;
 }
 
-template <size_t n, class T>
-inline Array<n, T>::Array() : _size(n), _array(new T[_size])
+template <class T>
+inline Array<T>::Array(const size_t size) : _size(size), _array(new T[_size])
 {
 }
 
-template <size_t n, class T>
-inline Array<n, T>::~Array()
+template <class T>
+inline Array<T>::~Array()
 {
 	delete[] _array;
 }
 
-template <size_t n, class T>
-inline const T& Array<n, T>::operator[](const size_t index) const
+template <class T>
+inline const T& Array<T>::operator[](const size_t index) const
 {
 	if (index >= size())
 		throw BadArray("Given index is out of bounds", index);
 	return _array[index];
 }
 
-template <size_t n, class T>
-inline T& Array<n, T>::operator[](const size_t index)
+template <class T>
+inline T& Array<T>::operator[](const size_t index)
 {
 	if (index >= size())
 		throw BadArray("Given index is out of bounds", index);
 	return _array[index];
 }
 
-template <size_t n, class T>
-inline size_t Array<n, T>::size() const
+template <class T>
+inline size_t Array<T>::size() const
 {
 	return _size;
 }
 
-template <size_t n, class T>
-inline std::ostream& operator<<(std::ostream& os, const Array<n, T>& arr)
+template <class T>
+inline std::ostream& operator<<(std::ostream& os, const Array<T>& arr)
 {
 	os << '[';
 	for (size_t i = 0; i < arr.size(); i++)
