@@ -10,6 +10,7 @@ int main(void)
 	Sequence<int> seq1;
 	Sequence<double> seq2(4);
 	Sequence<Point> seq3(2);
+	Sequence<string> seq4;
 
 	{
 		cout << "Integer sequence: " << seq1 << endl;
@@ -37,7 +38,8 @@ int main(void)
 		seq2.remove(1); // delete the element on particular index
 		cout << "Double sequence with cut 1st el: " << seq2 << endl;
 		seq2.clear();
-		cout << "Cleared sequence: " << seq2 <<", it's size: " << seq2.size()<< ", it's capacity:" << seq2.capacity() << endl;
+		cout << "Cleared sequence: " << seq2 << ", it's size: " << seq2.size() << ", it's capacity:" << seq2.capacity()
+			<< endl;
 		cout << "-----------------------------------" << endl;
 	}
 	{
@@ -49,6 +51,17 @@ int main(void)
 		cout << "Sequence capacity: " << seq2.capacity() << endl;
 		cout << "Sequence element at index 1: " << seq3[1] << endl;
 		cout << "Sequence contains elements Point(1,2): " << boolalpha << seq3.contains(Point(1, 2)) << endl;
+	}
+	{
+		try
+		{
+			seq4.insert("hello", 3); // exception example (index out of bounds of the sequence)
+			cout << "4th element of the sequence: " << seq4[4] << endl;
+		}
+		catch (const Sequence<string>::BadSeq& bs)
+		{
+			bs.exceptionMessage();
+		}
 	}
 	return 0;
 }

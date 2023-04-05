@@ -89,11 +89,7 @@ bool Sequence<T>::contains(T element) const
 template <class T>
 const T& Sequence<T>::operator[](const size_t index) const
 {
-	if (empty())
-		throw BadSeq("The sequence is empty.");
-	if (index > _size)
-		throw BadSeq("The index is bigger than the size.");
-	return (*_array)[index];
+	return const_cast<Sequence&>(*this)[index];
 }
 
 template <class T>
