@@ -10,26 +10,12 @@ private:
 	size_t _size;
 	Array<T>* _arr;
 
-	// unused functions
+	// unused methods
 	QueueArray(const QueueArray&);
 	QueueArray& operator=(const QueueArray&);
 
 public:
-	class BadQueueArray
-	{
-	private:
-		std::string _problem;
-
-	public:
-		explicit BadQueueArray(const std::string& problem);
-
-		~BadQueueArray()
-		{
-		}
-
-		void exceptionMessage() const;
-	};
-
+	class BadQueueArray;
 	explicit QueueArray(const size_t capacity);
 	~QueueArray() override;
 	inline bool empty() const override { return size() == 0; }
@@ -105,14 +91,23 @@ std::ostream& operator<<(std::ostream& os, const QueueArray<T>& q)
 
 #pragma region BadQueueArray Implementation
 template <class T>
-QueueArray<T>::BadQueueArray::BadQueueArray(const std::string& problem) : _problem(problem)
+class QueueArray<T>::BadQueueArray
 {
-}
+private:
+	std::string _problem;
 
-template <class T>
-void QueueArray<T>::BadQueueArray::exceptionMessage() const
-{
-	std::cout << _problem << std::endl;
-}
+public:
+	explicit BadQueueArray(const std::string problem = "") : _problem(problem)
+	{
+	}
 
+	~BadQueueArray()
+	{
+	}
+
+	void exceptionMessage() const
+	{
+		std::cerr << _problem << std::endl;
+	}
+};
 #pragma endregion
