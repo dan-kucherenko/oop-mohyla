@@ -18,18 +18,24 @@
     <ClInclude Include="IQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="QueueArray.h">
+    <ClInclude Include="QueueSizedArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="QueueList.h">
+    <ClInclude Include="QueueArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Array.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="QueueList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QueueList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
