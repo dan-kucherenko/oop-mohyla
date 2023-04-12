@@ -1,3 +1,7 @@
+//
+// Developed by Daniil Kucherenko on 11.04.23
+//
+
 #pragma once
 #include <iostream>
 

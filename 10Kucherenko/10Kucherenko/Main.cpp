@@ -44,18 +44,17 @@ int main(void)
 		cout << "Queue capacity: " << q3.capacity() << endl;
 		try
 		{
-            q3.put(3.4);
-            q3.put(3.5);
-            q3.put(3.6);
-            q3.put(3.7);
-            q3.put(3.8);
-            cout << "Queue front: " << q3.front() << endl;
-            q3.print();
-            cout << "Queue size: " << q3.size() << endl;
-            q3.pop();
+			q3.put(3.4);
+			q3.put(3.5);
+			q3.put(3.6);
+			q3.put(3.7);
+			q3.put(3.8);
+			cout << "Queue front: " << q3.front() << endl;
+			q3.print();
+			cout << "Queue size: " << q3.size() << endl;
+			q3.pop();
 			cout << "Element popped" << endl;
-            q3.print();
-
+			q3.print();
 		}
 		catch (const QueueList<double>::BadQueueList& bql)
 		{
