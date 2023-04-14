@@ -29,4 +29,7 @@ const TComplex operator* (const TComplex&, const TComplex&);
 const TComplex operator/ (const TComplex&, const TComplex&);
 TComplex& operator*=(TComplex&, const TComplex&);
 TComplex& operator/=(TComplex&, const TComplex&);
+TComplex& operator += (TComplex&, const TComplex&);
+TComplex& operator -= (TComplex&, const TComplex&);
+
 std::ostream& operator<<(std::ostream&, const TComplex&);

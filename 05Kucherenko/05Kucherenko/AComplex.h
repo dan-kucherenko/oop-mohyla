@@ -29,5 +29,7 @@ const AComplex operator+(const AComplex&, const AComplex&);
 const AComplex operator-(const AComplex&, const AComplex&);
 AComplex& operator+=(AComplex&, const AComplex&);
 AComplex& operator-=(AComplex&, const AComplex&);
+AComplex& operator*=(AComplex&, const AComplex&);
+AComplex& operator/=(AComplex&, const AComplex&);
 
 std::ostream& operator<<(std::ostream&, const AComplex&);

@@ -74,6 +74,14 @@ TComplex& operator/=(TComplex& tc_a, const TComplex& tc_b)
 	return tc_a;
 }
 
+TComplex &operator+=(TComplex &a, const TComplex &b) {
+    return a = a + b;
+}
+
+TComplex& operator -= (TComplex& a, const TComplex& b) {
+    return a = a - b;
+}
+
 std::ostream& operator<<(std::ostream& os, const TComplex& tc)
 {
 	return os << tc.mod() << "(cos(" << tc.arg() << ")" << " + sin(" << tc.arg() << ")i)";
