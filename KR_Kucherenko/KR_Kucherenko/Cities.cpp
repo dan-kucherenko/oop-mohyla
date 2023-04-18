@@ -19,39 +19,30 @@ Cities::~Cities()
 }
 #pragma endregion
 
-//Cities& Cities::operator=(const Cities&)
-//{
-//	// TODO: insert return statement here
-//}
+Cities& Cities::operator=(const Cities& city)
+{
+	if (this == &city)
+		return *this;
+	_size = city.size();
+	_cities->clear();
+	for (int i = 0; i < size(); ++i)
+		_cities->add(city[i]);
+	return *this;
+}
 
 #pragma region Operator[]
 const City& Cities::operator[](const size_t index) const
 {
-	/*try
-	{
-		if (index > size())
-			throw BadCities("Index is out of bounds");*/
+	if (index >= size())
+		throw BadCities("Index is out of bounds");
 	return (*_cities)[index];
-	/*}
-catch (const BadCities& bc)
-{
-	bc.exceptionMessage();
-}*/
 }
 
 City& Cities::operator[](const size_t index)
 {
-	/*try
-	{
-		if (index > size())
-			throw BadCities("Index is out of bounds");*/
+	if (index >= size())
+		throw BadCities("Index is out of bounds");
 	return (*_cities)[index];
-	/*}
-	catch (const Sequence<City>::BadSeq& bs)
-	{
-		bs.exceptionMessage();
-		return nullptr;
-	}*/
 }
 #pragma endregion
 
