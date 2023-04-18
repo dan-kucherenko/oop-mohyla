@@ -31,6 +31,10 @@ public:
 
 	Cities& addCity(const City&);
 	Cities& addCity(const std::string&, const unsigned int);
+
+	Cities& sortByPopulationAscending();
+	Cities& sortByPopulationDescending();
+	Cities& rollbackSorting();
 };
 
 std::ostream& operator<<(std::ostream&, const Cities&);

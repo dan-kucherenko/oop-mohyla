@@ -13,16 +13,31 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Cities">
+      <UniqueIdentifier>{6293e8a2-3781-4ebd-8b55-90a1eec3a6ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Fraction">
+      <UniqueIdentifier>{a0fa2b77-23be-4893-a893-32c8bc31a53b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DoubleList">
+      <UniqueIdentifier>{9cd34a6f-ffe3-486e-a97a-1fd6f9b9a305}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cities.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Sequence.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Cities</Filter>
     </ClInclude>
     <ClInclude Include="Array.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Cities</Filter>
+    </ClInclude>
+    <ClInclude Include="Cities.h">
+      <Filter>Header Files\Cities</Filter>
+    </ClInclude>
+    <ClInclude Include="Fraction.h">
+      <Filter>Header Files\Fraction</Filter>
+    </ClInclude>
+    <ClInclude Include="DoubleList.h">
+      <Filter>Header Files\DoubleList</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -30,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Fraction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
