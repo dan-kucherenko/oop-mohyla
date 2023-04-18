@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Cities.h"
+#include "Fraction.h"
 
 using namespace std;
 
@@ -33,6 +34,23 @@ int main(void)
 		cout << "Cities copy: " << citiesCopy << endl;
 		cout << "-------------------------------------------------" << endl;
 	}
-	
+	{
+		cout << endl << "Fractions: " << endl << endl;
+		try
+		{
+			Fraction f1(4, 8);
+			cout << f1 << endl;
+			f1.setNumerator(6);
+			cout << f1 << endl;
+			f1.setDenominator(9);
+			cout << f1 << endl;
+		}
+		catch (const Fraction::BadFraction& bf)
+		{
+			bf.exceptionMessage();
+		}
+		
+		cout << "-------------------------------------------------" << endl;
+	}
 	return 0;
 }
