@@ -6,6 +6,7 @@ struct City
 {
 	std::string _name;
 	unsigned int _population;
+	auto operator<=>(const City&) const = default;
 };
 
 std::ostream& operator<<(std::ostream&, const City&);

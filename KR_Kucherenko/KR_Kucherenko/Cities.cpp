@@ -1,5 +1,7 @@
 #include "Cities.h"
 
+#include <algorithm>
+
 #pragma region Constructor/Destructor
 Cities::Cities() : _size(0), _cities(new Sequence<City>)
 {
@@ -56,18 +58,20 @@ City& Cities::operator[](const size_t index)
 #pragma region AddOperator
 Cities& Cities::addCity(const City& city)
 {
-	_cities->add(city);
+	std::string cityNameUpper = city._name;
+	std::transform(cityNameUpper.begin(), cityNameUpper.end(), cityNameUpper.begin(), toupper);
 	size_t index = 0;
-	while (index < _cities->size() && toupper((*_cities)[index]._name[0]) < toupper(city._name[0]))
+	while (index < _cities->size() && cityNameUpper > (*_cities)[index]._name)
 		index++;
 	_cities->insert(city, index);
 	_size++;
 	return *this;
 }
 
+
 Cities& Cities::addCity(const std::string& cityName, const unsigned int population)
 {
-	addCity({ cityName, population });
+	addCity({cityName, population});
 	return *this;
 }
 #pragma endregion
@@ -86,4 +90,3 @@ std::ostream& operator<<(std::ostream& os, const Cities& cities)
 	return os << ']';
 }
 #pragma endregion
-
