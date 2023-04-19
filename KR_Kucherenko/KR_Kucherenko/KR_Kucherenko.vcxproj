@@ -132,11 +132,13 @@
     <ClInclude Include="Array.h" />
     <ClInclude Include="Cities.h" />
     <ClInclude Include="DoubleList.h" />
+    <ClInclude Include="DoubleSingleList.h" />
     <ClInclude Include="Fraction.h" />
     <ClInclude Include="Sequence.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cities.cpp" />
+    <ClCompile Include="DoubleSingleList.cpp" />
     <ClCompile Include="Fraction.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>

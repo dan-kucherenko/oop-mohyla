@@ -1,3 +1,7 @@
+//
+// Developed by Daniil Kucherenko on 18.04.2023
+//
+
 #include "Cities.h"
 
 #include <algorithm>
