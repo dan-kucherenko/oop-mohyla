@@ -17,6 +17,7 @@ private:
 public:
 	class BadFraction;
 	Fraction(const int, const int);
+	Fraction(const double);
 	Fraction(const Fraction&);
 	~Fraction();
 	Fraction& operator=(const Fraction&);
@@ -24,17 +25,21 @@ public:
 	inline const int numerator() const { return _p; }
 	inline const unsigned int denominator() const { return _q; }
 
-	inline void setNumerator(int numerator) { fillFraction(numerator, denominator()); }
-	inline void setDenominator(int denominator) { fillFraction(numerator(), denominator); }
+	inline void setNumerator(const int numerator) { fillFraction(numerator, denominator()); }
+	inline void setDenominator(const int denominator) { fillFraction(numerator(), denominator); }
 
-
-	Fraction& operator+=(int);
-	Fraction& operator-=(int);
-	const Fraction operator++(int);
-	const Fraction& operator++();
-	const Fraction operator--(int);
-	const Fraction& operator--();
+	explicit operator double() const;
 };
+
+const Fraction operator+(const Fraction&, const Fraction&);
+const Fraction operator-(const Fraction&, const Fraction&);
+const Fraction operator*(const Fraction&, const Fraction&);
+const Fraction operator/(const Fraction&, const Fraction&);
+
+Fraction& operator+=(Fraction&, const Fraction&);
+Fraction& operator-=(Fraction&, const Fraction&);
+Fraction& operator*=(Fraction&, const Fraction&);
+Fraction& operator/=(Fraction&, const Fraction&);
 
 std::ostream& operator<<(std::ostream&, const Fraction&);
 

@@ -38,19 +38,70 @@ int main(void)
 		cout << endl << "Fractions: " << endl << endl;
 		try
 		{
-			Fraction f1(4, 8);
-			cout << f1 << endl;
-			f1.setNumerator(6);
-			cout << f1 << endl;
-			f1.setDenominator(9);
-			cout << f1 << endl;
+			Fraction f1(4, -8);
 		}
 		catch (const Fraction::BadFraction& bf)
 		{
 			bf.exceptionMessage();
 		}
-		
+		Fraction f1(4, 8);
+		cout << "Fraction f1 " << f1 << " in decimal form " << double(f1) << endl;
+		f1.setNumerator(6);
+		cout << f1 << endl;
+		f1.setDenominator(9);
+		cout << f1 << endl;
+		const double decimacFraction = 0.4;
+		cout << "Decimal fraction: " << decimacFraction << ", converted to default fraction: " <<
+			Fraction(decimacFraction) << endl;
+		try
+		{
+			cout << "Operator+" << endl;
+			cout << "2 + " << f1 << " = " << 2 + f1 << endl;
+			cout << f1 << " + 2 = " << f1 + 2 << endl;
+			cout << f1 << " + " << f1 << " = " << f1 + f1 << endl;
+
+			cout << "Operator+=" << endl;
+			cout << f1 << " += " << 2 << " = " << (f1 += 2) << endl;
+			cout << f1 << " += " << f1 << " = " << (f1 += f1) << endl;
+
+			cout << "Operator-" << endl;
+			cout << 2 << " - " << f1 << " = " << 2 - f1 << endl;
+			cout << f1 << " - " << 2 << " = " << f1 - 2 << endl;
+			cout << f1 << " - " << f1 << " = " << f1 - f1 << endl;
+
+			cout << "Operator-=" << endl;
+			cout << f1 << " -= " << 2 << " = " << (f1 -= 2) << endl;
+			cout << f1 << " -= " << f1 << " = " << (f1 -= f1) << endl;
+
+
+			Fraction f2(-3, 4);
+			cout << "Operator*" << endl;
+			cout << 2 << " * " << f2 << " = " << 2 * f2 << endl;
+			cout << f2 << " * " << 2 << " = " << f2 * 2 << endl;
+			cout << f2 << " * " << f2 << " = " << f2 * f2 << endl;
+
+			cout << "Operator*=" << endl;
+			cout << f2 << " *= " << 2 << " = " << (f2 *= 2) << endl;
+			cout << f2 << " *= " << f2 << " = " << (f2 *= f2) << endl;
+
+			cout << "Operator/" << endl;
+			cout << 2 << " / " << f2 << " = " << 2 / f2 << endl;
+			cout << f2 << " / " << 2 << " = " << f2 / 2 << endl;
+			cout << f2 << " / " << f2 << " = " << f2 / f2 << endl;
+
+			cout << "Operator/=" << endl;
+			cout << f2 << " /= " << 2 << " = " << (f2 /= 2) << endl;
+			cout << f2 << " /= " << f2 << " = " << (f2 /= f2) << endl;
+		}
+		catch (const Fraction::BadFraction& bf)
+		{
+			bf.exceptionMessage();
+		}
+
 		cout << "-------------------------------------------------" << endl;
+	}
+	{
+		cout << endl << "DoubleLists: " << endl << endl;
 	}
 	return 0;
 }
