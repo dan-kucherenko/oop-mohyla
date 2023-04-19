@@ -43,7 +43,7 @@
       <Filter>Header Files\DoubleList</Filter>
     </ClInclude>
     <ClInclude Include="DoubleCyclicList.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\DoubleList</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -54,12 +54,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Fraction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DoubleSingleList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DoubleCyclicList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -46,12 +46,7 @@ inline DoubleSingleList<T>::DoubleSingleList() : _size(0), _head(nullptr)
 template <class T>
 inline DoubleSingleList<T>::~DoubleSingleList()
 {
-	while (_head != nullptr)
-	{
-		Node* temp = _head;
-		_head = _head->_next;
-		delete temp;
-	}
+	clear();
 }
 #pragma endregion
 
@@ -169,6 +164,7 @@ void DoubleSingleList<T>::clear()
 {
 	while (!empty())
 		remove(size() - 1);
+	_head = nullptr;
 }
 #pragma endregion
 
