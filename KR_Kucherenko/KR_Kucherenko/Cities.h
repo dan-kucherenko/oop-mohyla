@@ -4,24 +4,20 @@
 
 #pragma once
 
+#include "DoubleList.h"
 #include "Sequence.h"
 
-struct City
-{
-	std::string _name;
-	unsigned int _population;
-	auto operator<=>(const City&) const = default;
-};
-
-std::ostream& operator<<(std::ostream&, const City&);
 
 class Cities
 {
-private:
-	size_t _size;
-	Sequence<City>* _cities;
-
 public:
+	struct City
+	{
+		std::string _name;
+		unsigned int _population;
+		auto operator<=>(const City&) const = default;
+	};
+
 	class BadCities;
 	Cities();
 	~Cities();
@@ -39,9 +35,14 @@ public:
 	Cities& sortByPopulationAscending();
 	Cities& sortByPopulationDescending();
 	Cities& rollbackSorting();
+
+private:
+	size_t _size;
+	Sequence<City>* _cities;
 };
 
 std::ostream& operator<<(std::ostream&, const Cities&);
+std::ostream& operator<<(std::ostream&, const Cities::City&);
 
 class Cities::BadCities
 {

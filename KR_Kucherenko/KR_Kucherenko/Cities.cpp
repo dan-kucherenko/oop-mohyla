@@ -35,14 +35,14 @@ Cities& Cities::operator=(const Cities& city)
 }
 
 #pragma region Operator[]
-const City& Cities::operator[](const size_t index) const
+const Cities::City& Cities::operator[](const size_t index) const
 {
 	if (index >= size())
 		throw BadCities("Index is out of bounds");
 	return (*_cities)[index];
 }
 
-City& Cities::operator[](const size_t index)
+Cities::City& Cities::operator[](const size_t index)
 {
 	if (index >= size())
 		throw BadCities("Index is out of bounds");
@@ -131,10 +131,14 @@ Cities& Cities::rollbackSorting()
 	}
 	return *this;
 }
+DoubleList<Cities::City>* Cities::convertToList(bool)
+{
+	return nullptr;
+}
 #pragma endregion
 
 #pragma region Output
-std::ostream& operator<<(std::ostream& os, const City& city)
+std::ostream& operator<<(std::ostream& os, const Cities::City& city)
 {
 	return os << city._name << " - " << city._population;
 }
