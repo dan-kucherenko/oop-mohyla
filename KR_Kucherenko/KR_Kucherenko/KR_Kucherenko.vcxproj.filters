@@ -42,6 +42,9 @@
     <ClInclude Include="DoubleSingleList.h">
       <Filter>Header Files\DoubleList</Filter>
     </ClInclude>
+    <ClInclude Include="DoubleCyclicList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cities.cpp">
@@ -54,6 +57,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DoubleSingleList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DoubleCyclicList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

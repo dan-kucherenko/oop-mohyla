@@ -1,6 +1,7 @@
 #pragma once
 #include "DoubleList.h"
 #include "DoubleSingleList.h"
+#include <iostream>
 
 template <class T>
 class DoubleSingleList : public DoubleList<T>
@@ -16,22 +17,16 @@ protected:
 private:
 	size_t _size;
 	Node* _head;
-	Node* _back;
 
 public:
 	class BadDoubleSingleList;
 	DoubleSingleList();
 	~DoubleSingleList() override;
 
-	const T& front() const override;
-	const T& back() const override;
+	DoubleSingleList& addBack(const T&);
+	DoubleSingleList& removeBack();
 
-	DoubleSingleList& addFront(const T&) override;
-	DoubleSingleList& addBack(const T&) override;
-	DoubleSingleList& removeFront() override;
-	DoubleSingleList& removeBack() override;
-
-	DoubleSingleList& insert(const size_t , const T& ) override;
+	DoubleSingleList& insert(const size_t, const T&) override;
 	DoubleSingleList& remove(const size_t) override;
 
 	const T& operator[](const size_t) const override;
@@ -40,13 +35,11 @@ public:
 	size_t size() const override;
 	bool empty() const override;
 	void clear() override;
-
-	void showList() override;
 };
 
 #pragma region Constructor/Destructor
 template <class T>
-inline DoubleSingleList<T>::DoubleSingleList() : _size(0), _head(nullptr), _back(nullptr)
+inline DoubleSingleList<T>::DoubleSingleList() : _size(0), _head(nullptr)
 {
 }
 
@@ -62,102 +55,40 @@ inline DoubleSingleList<T>::~DoubleSingleList()
 }
 #pragma endregion
 
-template <class T>
-inline const T& DoubleSingleList<T>::front() const
-{
-	if (empty())
-		throw BadDoubleSingleList("List is empty, there is no front element");
-	return _head->_value;
-}
-
-template <class T>
-inline const T& DoubleSingleList<T>::back() const
-{
-	if (empty())
-		throw BadDoubleSingleList("List is empty, there is no back element");
-	return _back->_value;
-}
-
 #pragma region Add/Remove methods
 template <class T>
-inline DoubleSingleList<T>& DoubleSingleList<T>::addFront(const T& value)
+inline DoubleSingleList<T>& DoubleSingleList<T>::insert(const size_t index, const T& value)
 {
-	Node* newNode = new Node{value, _head, nullptr};
-	if (_head != nullptr)
-		_head->_prev = newNode;
-	_head = newNode;
-	if (_back == nullptr)
-		_back = _head;
-	++_size;
+	if (index > _size)
+		throw BadDoubleSingleList("Index is out of bounds");
+	Node* newNode = new Node{value, nullptr, nullptr};
+	if (_head == nullptr)
+		_head = newNode;
+	else if (index == 0)
+	{
+		newNode->_next = _head;
+		_head = newNode;
+	}
+	else
+	{
+		Node* nodeBefore = _head;
+		for (size_t i = 0; i < index - 1; i++)
+			nodeBefore = nodeBefore->_next;
+		Node* nodeAfter = nodeBefore->_next;
+		nodeBefore->_next = newNode;
+		newNode->_prev = nodeBefore;
+		newNode->_next = nodeAfter;
+		if (nodeAfter != nullptr)
+			nodeAfter->_prev = newNode;
+	}
+	_size++;
 	return *this;
 }
 
 template <class T>
 inline DoubleSingleList<T>& DoubleSingleList<T>::addBack(const T& value)
 {
-	Node* newNode = new Node{value, nullptr, _back};
-	if (_back != nullptr)
-		_back->_next = newNode;
-	_back = newNode;
-	if (_head == nullptr)
-		_head = _back;
-	++_size;
-	return *this;
-}
-
-template <class T>
-inline DoubleSingleList<T>& DoubleSingleList<T>::removeFront()
-{
-	if (empty())
-		throw BadDoubleSingleList("List is empty, nothing to remove from front");
-	Node* node = _head;
-	_head = _head->_next;
-	if (_head != nullptr)
-		_head->_prev = nullptr;
-	else
-		_back = nullptr;
-	delete node;
-	--_size;
-	return *this;
-}
-
-template <class T>
-inline DoubleSingleList<T>& DoubleSingleList<T>::removeBack()
-{
-	if (empty())
-		throw BadDoubleSingleList("List is empty, nothing to remove from back");
-	Node* node = _back;
-	_back = _back->_prev;
-	if (_back != nullptr)
-		_back->_next = nullptr;
-	else
-		_head = nullptr;
-	delete node;
-	--_size;
-	return *this;
-}
-
-template<class T>
-inline DoubleSingleList<T>& DoubleSingleList<T>::insert(const size_t index, const T& value)
-{
-	if (index > _size)
-		throw BadDoubleSingleList("Index is out of bounds");
-	if (index == 0)
-		addFront(value);
-	else if (index == _size)
-		addBack(value);
-	else {
-		Node* newNode = new Node{ value, nullptr, nullptr };
-		Node* nodeBefore = _head;
-		for (size_t i = 0; i < index - 1; i++)
-			nodeBefore = nodeBefore->_next;
-		Node* nodeAfter = nodeBefore->_next;
-		newNode->_prev = nodeBefore;
-		newNode->_next = nodeAfter;
-		nodeBefore->_next = newNode;
-		nodeAfter->_prev = newNode;
-		_size++;
-	}
+	insert(size(), value);
 	return *this;
 }
 
@@ -165,21 +96,33 @@ template <class T>
 inline DoubleSingleList<T>& DoubleSingleList<T>::remove(const size_t index)
 {
 	if (empty())
-		throw BadDoubleSingleList("List is empty, nothing to remove");
+		throw BadDoubleSingleList("List is empty");
+	if (index >= _size)
+		throw BadDoubleSingleList("Index is out of bounds");
+	Node* nodeToRemove = _head;
 	if (index == 0)
-		removeFront();
-	else if (index == _size - 1)
-		removeBack();
+	{
+		_head = _head->_next;
+		if (_head != nullptr)
+			_head->_prev = nullptr;
+	}
 	else
 	{
-		Node* nodeToRemove = _head;
 		for (size_t i = 0; i < index; i++)
 			nodeToRemove = nodeToRemove->_next;
-		nodeToRemove->_prev->_next = nodeToRemove->_next;
-		nodeToRemove->_next->_prev = nodeToRemove->_prev;
-		delete nodeToRemove;
-		_size--;
+		nodeToRemove->_prev->_next = nullptr;
+		if (nodeToRemove->_next != nullptr)
+			nodeToRemove->_next->_prev = nodeToRemove->_prev;
 	}
+	delete nodeToRemove;
+	_size--;
+	return *this;
+}
+
+template <class T>
+inline DoubleSingleList<T>& DoubleSingleList<T>::removeBack()
+{
+	remove(size() - 1);
 	return *this;
 }
 #pragma endregion
@@ -225,16 +168,16 @@ template <class T>
 void DoubleSingleList<T>::clear()
 {
 	while (!empty())
-		removeFront();
+		remove(size() - 1);
 }
 #pragma endregion
 
 template <class T>
-inline void DoubleSingleList<T>::showList()
+inline std::ostream& operator<<(std::ostream& os, const DoubleSingleList<T>& dsl)
 {
-	for (int i = 0; i < size(); i++)
-		std::cout << (*this)[i] << ' ';
-	std::cout << std::endl;
+	for (int i = 0; i < dsl.size(); i++)
+		os << dsl[i] << ' ';
+	return os;
 }
 
 template <class T>
