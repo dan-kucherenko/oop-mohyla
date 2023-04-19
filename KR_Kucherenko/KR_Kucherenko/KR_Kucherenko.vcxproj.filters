@@ -40,7 +40,7 @@
       <Filter>Header Files\DoubleList</Filter>
     </ClInclude>
     <ClInclude Include="DoubleSingleList.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\DoubleList</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

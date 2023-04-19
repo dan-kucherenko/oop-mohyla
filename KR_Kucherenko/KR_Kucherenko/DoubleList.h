@@ -26,12 +26,13 @@ public:
 	virtual const T& front() const = 0;
 	virtual const T& back() const = 0;
 
-	virtual void add(const T&) = 0;
-	virtual void remove() = 0;
-	virtual void addFront(const T&) = 0;
-	virtual void addBack(const T&) = 0;
-	virtual void removeFront() = 0;
-	virtual void removeBack() = 0;
+	virtual DoubleList& addFront(const T&) = 0;
+	virtual DoubleList& addBack(const T&) = 0;
+	virtual DoubleList& removeFront() = 0;
+	virtual DoubleList& removeBack() = 0;
+
+	virtual DoubleList& insert(const size_t, const T&) = 0;
+	virtual DoubleList& remove(const size_t) = 0;
 
 	virtual const T& operator[](const size_t) const = 0;
 	virtual T& operator[](const size_t) = 0;
@@ -39,4 +40,6 @@ public:
 	virtual size_t size() const = 0;
 	virtual bool empty() const = 0;
 	virtual void clear() = 0;
+
+	virtual void showList() = 0;
 };
