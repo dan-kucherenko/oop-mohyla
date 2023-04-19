@@ -6,6 +6,9 @@
 
 #include <algorithm>
 
+#include "DoubleCyclicList.h"
+#include "DoubleSingleList.h"
+
 #pragma region Constructor/Destructor
 Cities::Cities() : _size(0), _cities(new Sequence<City>)
 {
@@ -131,10 +134,6 @@ Cities& Cities::rollbackSorting()
 	}
 	return *this;
 }
-DoubleList<Cities::City>* Cities::convertToList(bool)
-{
-	return nullptr;
-}
 #pragma endregion
 
 #pragma region Output
@@ -151,3 +150,16 @@ std::ostream& operator<<(std::ostream& os, const Cities& cities)
 	return os << ']';
 }
 #pragma endregion
+
+DoubleList<Cities::City>* Cities::convertToList(const bool isCyclic)
+{
+	DoubleList<City>* cityList;
+	isCyclic ? cityList = new DoubleCyclicList<City> : cityList = new DoubleSingleList<City>;
+	
+	for (size_t i = 0; i < size(); i++)
+	{
+		City city = (*_cities)[i];
+		cityList->insert(i, {city._name, city._population});
+	}
+	return cityList;
+}

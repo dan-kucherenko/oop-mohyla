@@ -36,6 +36,8 @@ public:
 	Cities& sortByPopulationDescending();
 	Cities& rollbackSorting();
 
+	DoubleList<Cities::City>* convertToList(const bool);
+
 private:
 	size_t _size;
 	Sequence<City>* _cities;
