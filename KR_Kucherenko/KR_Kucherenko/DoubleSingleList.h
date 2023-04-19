@@ -1,3 +1,7 @@
+//
+// Developed by Daniil Kucherenko on 19.04.2023
+//
+
 #pragma once
 #include "DoubleList.h"
 #include "DoubleSingleList.h"

@@ -66,41 +66,41 @@ int main(void)
 	 		Fraction(decimacFraction) << endl;
 	 	try
 	 	{
-	 		cout << "Operator+" << endl;
+	 		cout << endl << "Operator+" << endl;
 	 		cout << "2.4 + " << f1 << " = " << decimacFraction + f1 << endl;
 	 		cout << f1 << " + 2.4 = " << f1 + decimacFraction << endl;
 	 		cout << f1 << " + " << f1 << " = " << f1 + f1 << endl;
 	
-	 		cout << "Operator+=" << endl;
+	 		cout << endl << "Operator+=" << endl;
 	 		cout << f1 << " += " << decimacFraction << " = " << (f1 += decimacFraction) << endl;
 	 		cout << f1 << " += " << f1 << " = " << (f1 += f1) << endl;
 	
-	 		cout << "Operator-" << endl;
+	 		cout << endl << "Operator-" << endl;
 	 		cout << decimacFraction << " - " << f1 << " = " << decimacFraction - f1 << endl;
 	 		cout << f1 << " - " << decimacFraction << " = " << f1 - decimacFraction << endl;
 	 		cout << f1 << " - " << f1 << " = " << f1 - f1 << endl;
 	
-	 		cout << "Operator-=" << endl;
+	 		cout << endl << "Operator-=" << endl;
 	 		cout << f1 << " -= " << decimacFraction << " = " << (f1 -= decimacFraction) << endl;
 	 		cout << f1 << " -= " << f1 << " = " << (f1 -= f1) << endl;
 	
 	
 	 		Fraction f2(-3, 4);
-	 		cout << "Operator*" << endl;
+	 		cout  << endl<< "Operator*" << endl;
 	 		cout << decimacFraction << " * " << f2 << " = " << decimacFraction * f2 << endl;
 	 		cout << f2 << " * " << decimacFraction << " = " << f2 * decimacFraction << endl;
 	 		cout << f2 << " * " << f2 << " = " << f2 * f2 << endl;
 	
-	 		cout << "Operator*=" << endl;
+	 		cout << endl << "Operator*=" << endl;
 	 		cout << f2 << " *= " << decimacFraction << " = " << (f2 *= decimacFraction) << endl;
 	 		cout << f2 << " *= " << f2 << " = " << (f2 *= f2) << endl;
 	
-	 		cout << "Operator/" << endl;
+	 		cout << endl << "Operator/" << endl;
 	 		cout << decimacFraction << " / " << f2 << " = " << decimacFraction / f2 << endl;
 	 		cout << f2 << " / " << decimacFraction << " = " << f2 / decimacFraction << endl;
 	 		cout << f2 << " / " << f2 << " = " << f2 / f2 << endl;
 	
-	 		cout << "Operator/=" << endl;
+	 		cout << endl << "Operator/=" << endl;
 	 		cout << f2 << " /= " << decimacFraction << " = " << (f2 /= decimacFraction) << endl;
 	 		cout << f2 << " /= " << f2 << " = " << (f2 /= f2) << endl;
 	 	}
