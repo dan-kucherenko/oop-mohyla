@@ -10,7 +10,7 @@ using namespace std;
 int main(void)
 {
 	 {
-	 	cout << "Cities: " << endl << endl;
+	 	/*cout << "Cities: " << endl << endl;
 	 	Cities cities;
 	 	cities.addCity({"Chernihiv", 3}).addCity({"Lviv", 3}).addCity("Odesa", 4)
 	 	      .addCity({"Kyiv", 4})
@@ -34,7 +34,7 @@ int main(void)
 	 	Cities citiesCopy;
 	 	citiesCopy = cities;
 	 	cout << "Cities copy: " << citiesCopy << endl;
-	 	cout << "-------------------------------------------------" << endl;
+	 	cout << "-------------------------------------------------" << endl;*/
 	 }
 	 {
 	 	cout << endl << "Fractions: " << endl << endl;
@@ -52,47 +52,47 @@ int main(void)
 	 	cout << f1 << endl;
 	 	f1.setDenominator(9);
 	 	cout << f1 << endl;
-	 	const double decimacFraction = 0.4;
+	 	const double decimacFraction = 2.4;
 	 	cout << "Decimal fraction: " << decimacFraction << ", converted to default fraction: " <<
 	 		Fraction(decimacFraction) << endl;
 	 	try
 	 	{
 	 		cout << "Operator+" << endl;
-	 		cout << "2 + " << f1 << " = " << 2 + f1 << endl;
-	 		cout << f1 << " + 2 = " << f1 + 2 << endl;
+	 		cout << "2.4 + " << f1 << " = " << decimacFraction + f1 << endl;
+	 		cout << f1 << " + 2.4 = " << f1 + decimacFraction << endl;
 	 		cout << f1 << " + " << f1 << " = " << f1 + f1 << endl;
 	
 	 		cout << "Operator+=" << endl;
-	 		cout << f1 << " += " << 2 << " = " << (f1 += 2) << endl;
+	 		cout << f1 << " += " << decimacFraction << " = " << (f1 += decimacFraction) << endl;
 	 		cout << f1 << " += " << f1 << " = " << (f1 += f1) << endl;
 	
 	 		cout << "Operator-" << endl;
-	 		cout << 2 << " - " << f1 << " = " << 2 - f1 << endl;
-	 		cout << f1 << " - " << 2 << " = " << f1 - 2 << endl;
+	 		cout << decimacFraction << " - " << f1 << " = " << decimacFraction - f1 << endl;
+	 		cout << f1 << " - " << decimacFraction << " = " << f1 - decimacFraction << endl;
 	 		cout << f1 << " - " << f1 << " = " << f1 - f1 << endl;
 	
 	 		cout << "Operator-=" << endl;
-	 		cout << f1 << " -= " << 2 << " = " << (f1 -= 2) << endl;
+	 		cout << f1 << " -= " << decimacFraction << " = " << (f1 -= decimacFraction) << endl;
 	 		cout << f1 << " -= " << f1 << " = " << (f1 -= f1) << endl;
 	
 	
 	 		Fraction f2(-3, 4);
 	 		cout << "Operator*" << endl;
-	 		cout << 2 << " * " << f2 << " = " << 2 * f2 << endl;
-	 		cout << f2 << " * " << 2 << " = " << f2 * 2 << endl;
+	 		cout << decimacFraction << " * " << f2 << " = " << decimacFraction * f2 << endl;
+	 		cout << f2 << " * " << decimacFraction << " = " << f2 * decimacFraction << endl;
 	 		cout << f2 << " * " << f2 << " = " << f2 * f2 << endl;
 	
 	 		cout << "Operator*=" << endl;
-	 		cout << f2 << " *= " << 2 << " = " << (f2 *= 2) << endl;
+	 		cout << f2 << " *= " << decimacFraction << " = " << (f2 *= decimacFraction) << endl;
 	 		cout << f2 << " *= " << f2 << " = " << (f2 *= f2) << endl;
 	
 	 		cout << "Operator/" << endl;
-	 		cout << 2 << " / " << f2 << " = " << 2 / f2 << endl;
-	 		cout << f2 << " / " << 2 << " = " << f2 / 2 << endl;
+	 		cout << decimacFraction << " / " << f2 << " = " << decimacFraction / f2 << endl;
+	 		cout << f2 << " / " << decimacFraction << " = " << f2 / decimacFraction << endl;
 	 		cout << f2 << " / " << f2 << " = " << f2 / f2 << endl;
 	
 	 		cout << "Operator/=" << endl;
-	 		cout << f2 << " /= " << 2 << " = " << (f2 /= 2) << endl;
+	 		cout << f2 << " /= " << decimacFraction << " = " << (f2 /= decimacFraction) << endl;
 	 		cout << f2 << " /= " << f2 << " = " << (f2 /= f2) << endl;
 	 	}
 	 	catch (const Fraction::BadFraction& bf)

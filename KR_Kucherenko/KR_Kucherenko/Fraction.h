@@ -12,7 +12,7 @@ private:
 	int _p;
 	unsigned int _q;
 	void fillFraction(int, int);
-	int gcd(const int, const unsigned int);
+	int gcd(int, unsigned int);
 
 public:
 	class BadFraction;

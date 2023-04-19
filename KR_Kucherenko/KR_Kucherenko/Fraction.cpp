@@ -4,8 +4,6 @@
 
 #include "Fraction.h"
 
-#include <iostream>
-
 #pragma region Helper Functions
 void Fraction::fillFraction(int numerator, int denominator)
 {
@@ -19,11 +17,18 @@ void Fraction::fillFraction(int numerator, int denominator)
 	_q = denominator;
 }
 
-int Fraction::gcd(const int a, const unsigned int b)
+int Fraction::gcd(int a, unsigned int b)
 {
-	if (b == 0)
-		return a;
-	return gcd(b, a % b);
+	int g;
+	if (a < 0)
+		a = -a;
+	while (a % b > 0)
+	{
+		g = a % b;
+		a = b;
+		b = g;
+	}
+	return b;
 }
 #pragma endregion
 
@@ -31,9 +36,6 @@ int Fraction::gcd(const int a, const unsigned int b)
 Fraction::Fraction(const int numerator, const int denominator)
 {
 	fillFraction(numerator, denominator);
-#ifndef NDEBUG
-	std::cout << "Fraction created" << std::endl;
-#endif
 }
 
 Fraction::Fraction(double decimalFraction)
@@ -55,16 +57,10 @@ Fraction::Fraction(double decimalFraction)
 
 Fraction::~Fraction()
 {
-#ifndef NDEBUG
-	std::cout << "Fraction deleted" << std::endl;
-#endif
 }
 
 Fraction::Fraction(const Fraction& f) : _p(f.numerator()), _q(f.denominator())
 {
-#ifndef NDEBUG
-	std::cout << "Fraction copied" << std::endl;
-#endif
 }
 
 #pragma endregion
@@ -115,10 +111,14 @@ const Fraction operator*(const Fraction& f1, const Fraction& f2)
 
 const Fraction operator/(const Fraction& f1, const Fraction& f2)
 {
-	return {
-		static_cast<int>(f1.numerator() * f2.denominator()),
-		static_cast<int>(f1.denominator() * f2.numerator())
-	};
+	int numerator = f1.numerator() * f2.denominator();
+	int denominator = f1.denominator() * f2.numerator();
+	if (denominator < 0)
+	{
+		numerator = -numerator;
+		denominator = -denominator;
+	}
+	return { numerator, denominator };
 }
 
 Fraction& operator+=(Fraction& f1, const Fraction& f2)
